@@ -165,13 +165,8 @@ C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcor
 C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Locations\Details.cshtml.g.cs
 C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Locations\Edit.cshtml.g.cs
 C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Locations\Index.cshtml.g.cs
-C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
-C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
-C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
-C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
-C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
-C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
-C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
+C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\BikeRental.MVCUI.csproj.CoreCompileInputs.cache
 C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\BikeRental.MVCUI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Your Name\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\BikeRental.MVCUI.MvcApplicationPartsAssemblyInfo.cache
