@@ -9,6 +9,7 @@ using BikeRental.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using BikeRental.MVCUI.Models.ViewModels;
 
 namespace BikeRental.MVCUI.Controllers
 {
@@ -19,13 +20,22 @@ namespace BikeRental.MVCUI.Controllers
         // GET: Employees
         public async Task<IActionResult> Index()
         {
-            List<Employee> employeeList = new List<Employee>();
+            List<Employee> employeeList = new List<Employee>();            
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"{baseurl}Employees"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     employeeList = JsonConvert.DeserializeObject<List<Employee>>(apiResponse);
+                }
+                foreach (var item in employeeList)
+                {
+                    using (var response = await httpClient.GetAsync($"{baseurl}Locations/{item.LocationId}"))
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        item.Location = JsonConvert.DeserializeObject<Location>(apiResponse);
+
+                    }
                 }
             }
             return View(employeeList);
@@ -44,6 +54,12 @@ namespace BikeRental.MVCUI.Controllers
                 {
                     var response = res.Content.ReadAsStringAsync().Result;
                     Employee employee = JsonConvert.DeserializeObject<Employee>(response);
+                    using (res = await client.GetAsync($"{baseurl}Locations/{employee.LocationId}"))
+                    {
+                        string apiResponse = await res.Content.ReadAsStringAsync();
+                        employee.Location = JsonConvert.DeserializeObject<Location>(apiResponse);
+
+                    }
                     return View(employee);
                 }
             }
@@ -121,7 +137,7 @@ namespace BikeRental.MVCUI.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmployeeId")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmployeeId,LocationId")] Employee employee)
         {
             TempData["Message"] = string.Empty;
             if (employee.Id > 0 || employee != null)

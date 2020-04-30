@@ -24,7 +24,8 @@ namespace BikeRental.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee()
         {
-            return await _context.Employee.ToListAsync();
+           
+            return await _context.Employee.ToListAsync(); 
         }
 
         // GET: api/Employees/5
@@ -36,8 +37,7 @@ namespace BikeRental.Controllers
             if (employee == null)
             {
                 return NotFound();
-            }
-
+            }            
             return employee;
         }
 
