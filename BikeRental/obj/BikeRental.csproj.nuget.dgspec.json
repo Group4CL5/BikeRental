@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Your Name\\Documents\\GitHub\\BikeRental\\BikeRental\\BikeRental.csproj": {}
+    "D:\\(4) Studios\\BikeRental\\BikeRental\\BikeRental.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Your Name\\Documents\\GitHub\\BikeRental\\BikeRental\\BikeRental.csproj": {
+    "D:\\(4) Studios\\BikeRental\\BikeRental\\BikeRental.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Your Name\\Documents\\GitHub\\BikeRental\\BikeRental\\BikeRental.csproj",
+        "projectUniqueName": "D:\\(4) Studios\\BikeRental\\BikeRental\\BikeRental.csproj",
         "projectName": "BikeRental",
-        "projectPath": "C:\\Users\\Your Name\\Documents\\GitHub\\BikeRental\\BikeRental\\BikeRental.csproj",
-        "packagesPath": "C:\\Users\\Your Name\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Your Name\\Documents\\GitHub\\BikeRental\\BikeRental\\obj\\",
+        "projectPath": "D:\\(4) Studios\\BikeRental\\BikeRental\\BikeRental.csproj",
+        "packagesPath": "C:\\Users\\wwstudent\\.nuget\\packages\\",
+        "outputPath": "D:\\(4) Studios\\BikeRental\\BikeRental\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Your Name\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wwstudent\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

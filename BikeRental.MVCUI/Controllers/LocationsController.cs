@@ -36,8 +36,9 @@ namespace BikeRental.MVCUI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Location location)
+        public ActionResult Create(Location location)
         {
+            TempData["Message"] = string.Empty;
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri($"{baseurl}Locations");
@@ -47,12 +48,14 @@ namespace BikeRental.MVCUI.Controllers
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)
                     {
+                        TempData["Message"] = "Location has been created.";
                         return RedirectToAction("Index");
                     }
             }
-            ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
+            TempData["Message"] = "Location has not been created.";
             return View(location);
         }
+        
         public async Task<IActionResult> Edit(int id)
         {
             Location location = new Location();
@@ -65,6 +68,63 @@ namespace BikeRental.MVCUI.Controllers
                 }
             }
             return View(location);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Location location)
+        {
+            TempData["Message"] = string.Empty;
+            if (location.Id > 0 || location != null)
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri($"{baseurl}Locations");
+                    HttpResponseMessage res = await httpClient.PutAsJsonAsync($"Locations/{location.Id}", location);
+
+                    if (res.IsSuccessStatusCode)
+                    {
+                        TempData["Message"] = $"Location has been saved.";
+                        return RedirectToAction("Index");
+                    }
+                    TempData["Message"] = $"Location has not been saved.";
+                    return View(location);
+                }
+            }
+           
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> Details(int id) 
+        { 
+            using(var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage res = await client.GetAsync($"Locations/{id}");
+                if (res.IsSuccessStatusCode)
+                {
+                    var response = res.Content.ReadAsStringAsync().Result;
+                    Location location = JsonConvert.DeserializeObject<Location>(response);
+                    return View(location);
+                }
+            }
+            return RedirectToAction("Index");
+        }
+        public async Task<ActionResult> Delete(int id)
+        {
+            TempData["Message"] = string.Empty;
+            using(var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseurl);
+                HttpResponseMessage res = await client.DeleteAsync($"Locations/{id}");
+                if (res.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "Location deleted.";
+                    return RedirectToAction("Index");
+                }
+                TempData["Message"] = "Location not deleted.";
+                return RedirectToAction("Index");
+            }
         }
     }
 }
