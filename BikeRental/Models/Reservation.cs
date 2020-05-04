@@ -21,5 +21,6 @@ namespace BikeRental.Models
         public virtual Location Location { get; set; }
         public virtual ReservationType Type { get; set; }
         public virtual ICollection<BikesReserved> BikesReserved { get; set; }
+        public virtual ICollection<ReservationAccessories> ReservationAccessories { get; set; }
     }
 }

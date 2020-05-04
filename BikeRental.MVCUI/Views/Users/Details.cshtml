@@ -1,0 +1,80 @@
+﻿@model BikeRental.MVCUI.Models.ViewModels.LocationBicycleAccessoriesViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Bike Store in @Model.Location.City</h1>
+
+<div>
+    <h4>Bicycles</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Location
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Bicycle)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location.City)
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="AddBike" asp-route-id="@item.Id">Add Bicycle to Reservation</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h4>Accessories</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    AccessoryName
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Accessories)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccessoryName)
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="AddAccessories" asp-route-id="@item.Id">Add Accessory to Reservation</a>                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

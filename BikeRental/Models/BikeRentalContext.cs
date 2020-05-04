@@ -17,12 +17,12 @@ namespace BikeRental.Models
 
         public virtual DbSet<Accessories> Accessories { get; set; }
         public virtual DbSet<Bicycle> Bicycle { get; set; }
-        public virtual DbSet<BikeAccessories> BikeAccessories { get; set; }
         public virtual DbSet<BikesReserved> BikesReserved { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
+        public virtual DbSet<ReservationAccessories> ReservationAccessories { get; set; }
         public virtual DbSet<ReservationType> ReservationType { get; set; }
         public virtual DbSet<Return> Return { get; set; }
 
@@ -31,7 +31,7 @@ namespace BikeRental.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BikeRental;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BikeRental;Trusted_Connection=True;");
             }
         }
 
@@ -58,6 +58,8 @@ namespace BikeRental.Models
                     .IsRequired()
                     .HasMaxLength(10);
 
+                entity.Property(e => e.LocationId).HasColumnName("LocationID");
+
                 entity.Property(e => e.Size)
                     .IsRequired()
                     .HasMaxLength(15);
@@ -65,27 +67,6 @@ namespace BikeRental.Models
                 entity.Property(e => e.Type)
                     .IsRequired()
                     .HasMaxLength(25);
-            });
-
-            modelBuilder.Entity<BikeAccessories>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.AccessoryId).HasColumnName("AccessoryID");
-
-                entity.Property(e => e.BicycleId).HasColumnName("BicycleID");
-
-                entity.HasOne(d => d.Accessory)
-                    .WithMany(p => p.BikeAccessories)
-                    .HasForeignKey(d => d.AccessoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_BikeAccessories_Accessories");
-
-                entity.HasOne(d => d.Bicycle)
-                    .WithMany(p => p.BikeAccessories)
-                    .HasForeignKey(d => d.BicycleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_BikeAccessories_Bicycle");
             });
 
             modelBuilder.Entity<BikesReserved>(entity =>
@@ -206,6 +187,11 @@ namespace BikeRental.Models
                     .HasForeignKey(d => d.TypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Reservation_Reservation");
+            });
+
+            modelBuilder.Entity<ReservationAccessories>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<ReservationType>(entity =>

@@ -7,7 +7,6 @@ namespace BikeRental.Models
     {
         public Bicycle()
         {
-            BikeAccessories = new HashSet<BikeAccessories>();
             BikesReserved = new HashSet<BikesReserved>();
         }
 
@@ -17,9 +16,9 @@ namespace BikeRental.Models
         public string Gender { get; set; }
         public string Brand { get; set; }
         public int LocationId { get; set; }
-        public virtual Location Location { get; set; }
 
-        public virtual ICollection<BikeAccessories> BikeAccessories { get; set; }
         public virtual ICollection<BikesReserved> BikesReserved { get; set; }
+
+        public virtual Location Location { get; set; }
     }
 }
