@@ -1,0 +1,21 @@
+﻿@model BikeRental.Models.Cart
+
+    <div>
+        <h4>Total Count: @(Model.Accessories.Count + Model.Bicycles.Count)</h4>
+        @{
+            foreach (var item in Model.Bicycles)
+            {
+                <p>
+                    <b>@item.Brand</b>
+                </p>
+            }
+            foreach (var item in Model.Accessories)
+            {
+                <p>
+                    <b>@item.AccessoryName</b>
+                </p>
+            }
+        }
+        <button type="submit" class="btn btn-primary">Place Order</button>
+    </div>
+
