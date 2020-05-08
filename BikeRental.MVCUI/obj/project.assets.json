@@ -8862,24 +8862,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\wwstudent\\.nuget\\packages\\": {},
+    "C:\\Users\\fsant\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\(4) Studios\\BikeRental\\BikeRental.MVCUI\\BikeRental.MVCUI.csproj",
+      "projectUniqueName": "C:\\Users\\fsant\\Documents\\GitHub\\BikeRental\\BikeRental.MVCUI\\BikeRental.MVCUI.csproj",
       "projectName": "BikeRental.MVCUI",
-      "projectPath": "D:\\(4) Studios\\BikeRental\\BikeRental.MVCUI\\BikeRental.MVCUI.csproj",
-      "packagesPath": "C:\\Users\\wwstudent\\.nuget\\packages\\",
-      "outputPath": "D:\\(4) Studios\\BikeRental\\BikeRental.MVCUI\\obj\\",
+      "projectPath": "C:\\Users\\fsant\\Documents\\GitHub\\BikeRental\\BikeRental.MVCUI\\BikeRental.MVCUI.csproj",
+      "packagesPath": "C:\\Users\\fsant\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fsant\\Documents\\GitHub\\BikeRental\\BikeRental.MVCUI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\wwstudent\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\fsant\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -8891,8 +8894,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\(4) Studios\\BikeRental\\BikeRental\\BikeRental.csproj": {
-              "projectPath": "D:\\(4) Studios\\BikeRental\\BikeRental\\BikeRental.csproj"
+            "C:\\Users\\fsant\\Documents\\GitHub\\BikeRental\\BikeRental\\BikeRental.csproj": {
+              "projectPath": "C:\\Users\\fsant\\Documents\\GitHub\\BikeRental\\BikeRental\\BikeRental.csproj"
             }
           }
         }

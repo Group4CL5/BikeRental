@@ -1,7 +1,7 @@
 ﻿@model BikeRental.Models.Cart
 
     <div>
-        <h4>Total Count: @(Model.Accessories.Count + Model.Bicycles.Count)</h4>
+        <h4>Total Count: @(Model.TotalCount())</h4>
         @{
             foreach (var item in Model.Bicycles)
             {
@@ -16,6 +16,6 @@
                 </p>
             }
         }
-        <button type="submit" class="btn btn-primary">Place Order</button>
+        <a class="btn btn-primary" asp-action="Checkout">Place Order</a>
     </div>
 

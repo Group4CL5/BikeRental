@@ -44,7 +44,7 @@
                         @Html.DisplayFor(modelItem => item.Location.City)
                     </td>
                     <td>
-                        <a class="btn btn-secondary" asp-action="AddBike" asp-route-id="@item.Id">Add Bicycle to Reservation</a>
+                        <a class="btn btn-secondary" asp-action="AddBikeFromCart" asp-route-id="@item.Id" asp-route-url="@Context.Request.Host@Context.Request.Path" id="update">Add Bicycle to Reservation</a>
 
                     </td>
                 </tr>
@@ -70,14 +70,11 @@
                         @Html.DisplayFor(modelItem => item.AccessoryName)
                     </td>
                     <td>
-                        <a class="btn btn-secondary" asp-action="AddAccessories" asp-route-id="@item.Id">Add Accessory to Reservation</a>                        
+                        <a class="btn btn-secondary" asp-action="AddAccessoryFromCart" asp-route-id="@item.Id" asp-route-url="@Context.Request.Host@Context.Request.Path" id="update">Add Accessory to Reservation</a>                        
                     </td>
                 </tr>
             }
         </tbody>
-    </table>
-    @{ 
-        await Html.PartialAsync("~/Users/CartDisplay.cshtml");
-    }
+    </table>   
+   @await Component.InvokeAsync("CartDisplay") 
 </div>
-

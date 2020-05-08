@@ -12,5 +12,7 @@ namespace BikeRental.MVCUI.Models.ViewModels
         public List<Bicycle> Bicycle { get; set; }
         public List<Accessories> Accessories { get; set; }
 
+        public Cart Cart { get; set; }
+
     }
 }

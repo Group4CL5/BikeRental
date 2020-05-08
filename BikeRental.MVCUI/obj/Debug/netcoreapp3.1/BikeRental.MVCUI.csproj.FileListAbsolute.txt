@@ -572,3 +572,7 @@ D:\(4) Studios\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\BikeRental.MV
 D:\(4) Studios\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\BikeRental.MVCUI.genruntimeconfig.cache
 D:\(4) Studios\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Users\CartDisplay.cshtml.g.cs
 D:\(4) Studios\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Users\Checkout.cshtml.g.cs
+C:\Users\fsant\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Users\Checkout.cshtml.g.cs
+C:\Users\fsant\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CartDisplay\Default.cshtml.g.cs
+C:\Users\fsant\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Users\Registration.cshtml.g.cs
+C:\Users\fsant\Documents\GitHub\BikeRental\BikeRental.MVCUI\obj\Debug\netcoreapp3.1\Razor\Views\Users\Login.cshtml.g.cs

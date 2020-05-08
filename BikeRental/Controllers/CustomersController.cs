@@ -28,10 +28,10 @@ namespace BikeRental.Controllers
         }
 
         // GET: api/Customers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        [HttpGet("{email}")]
+        public async Task<ActionResult<Customer>> GetCustomer(string email)
         {
-            var customer = await _context.Customer.FindAsync(id);
+            var customer = await _context.Customer.FindAsync(email);
 
             if (customer == null)
             {

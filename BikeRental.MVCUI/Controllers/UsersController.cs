@@ -74,9 +74,70 @@ namespace BikeRental.MVCUI.Controllers
                 }
             }
             lbavm.Bicycle = lbavm.Bicycle.Where(b => b.LocationId == id).ToList();
-
+            GetShoppingCart();
+            lbavm.Cart = cart;
             return View(lbavm);
         }
+
+        public ActionResult Registration()
+        {
+            Customer customer = new Customer();
+            return View(customer);
+        }
+
+        [HttpPost]
+        public ActionResult Registration( Customer customer)
+        {
+            TempData["Message"] = string.Empty;
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri($"{baseurl}Customers");
+                //HTTP POST
+                var postTask = httpClient.PostAsJsonAsync<Customer>("Customers", customer);
+                postTask.Wait();
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "Customer has been created.";
+                    return RedirectToAction("Index");
+                }
+            }
+            TempData["Message"] = "Customer has not been created.";
+            return View(customer);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Login(Customer customer)
+        {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage res = await client.GetAsync($"{baseurl}Customers/{customer.Email}");
+                if (res.IsSuccessStatusCode)
+                {
+                    
+                    string apiResponse = await res.Content.ReadAsStringAsync();
+                    customer = JsonConvert.DeserializeObject<Customer>(apiResponse);
+                    HttpContext.Session.SetString("Customer", JsonConvert.SerializeObject(customer));
+
+                    return RedirectToAction("Index");
+                  
+                }
+                return View(customer);
+            }
+            
+        }
+
+        public ActionResult Login()
+        {
+            Customer customer = new Customer();
+            return View();
+        }
+
+
 
         #endregion
         #region shoppingCartFunctions
@@ -85,7 +146,9 @@ namespace BikeRental.MVCUI.Controllers
         public ActionResult CartDisplay()
         {
             GetShoppingCart();
-            return PartialView(cart);
+            LocationBicycleAccessoriesViewModel lbavm = new LocationBicycleAccessoriesViewModel();
+            lbavm.Cart = cart;
+            return PartialView(lbavm);
         } 
 
         private void GetShoppingCart()
@@ -100,6 +163,8 @@ namespace BikeRental.MVCUI.Controllers
                 cart = JsonConvert.DeserializeObject<Cart>(value);
             }
         }
+
+
 
         public ActionResult RemoveBikeFromCart(int id, string url) 
         {
@@ -132,6 +197,7 @@ namespace BikeRental.MVCUI.Controllers
                     Bicycle bicycle = JsonConvert.DeserializeObject<Bicycle>(response);
                     cart.AddBicycle(bicycle);
                     HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                    GetShoppingCart();
                     return Redirect(url);
                 }
             }
@@ -163,82 +229,82 @@ namespace BikeRental.MVCUI.Controllers
 
         public async Task<ActionResult> Checkout()
         {
-            GetShoppingCart();
-            ReservationType reservationType = new ReservationType();
+            //GetShoppingCart();
+            //ReservationType reservationType = new ReservationType();
 
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(baseurl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage res = await client.GetAsync($"ReservationTypes");
-                if (res.IsSuccessStatusCode)
-                {
-                    var response = res.Content.ReadAsStringAsync().Result;
-                    List<ReservationType> reservationTypes = JsonConvert.DeserializeObject<List<ReservationType>>(response);
+            //using (var client = new HttpClient())
+            //{
+            //    client.BaseAddress = new Uri(baseurl);
+            //    client.DefaultRequestHeaders.Clear();
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //    HttpResponseMessage res = await client.GetAsync($"ReservationTypes");
+            //    if (res.IsSuccessStatusCode)
+            //    {
+            //        var response = res.Content.ReadAsStringAsync().Result;
+            //        List<ReservationType> reservationTypes = JsonConvert.DeserializeObject<List<ReservationType>>(response);
 
-                    reservationType = reservationTypes.FirstOrDefault(r => r.Type == "Web");
+            //        reservationType = reservationTypes.FirstOrDefault(r => r.Type == "Web");
                    
-                }
-            }
-            int UserId = 1;
-            Reservation reservation = new Reservation();
-            reservation.CustomerId = UserId;
-            reservation.LocationId = cart.LocationId;
-            reservation.OutTime = cart.OutTime;
-            reservation.Price = 10;
-            reservation.TypeId = reservationType.Id;
+            //    }
+            //}
+            //int UserId = 1;
+            //Reservation reservation = new Reservation();
+            //reservation.CustomerId = UserId;
+            //reservation.LocationId = cart.LocationId;
+            //reservation.OutTime = cart.OutTime;
+            //reservation.Price = 10;
+            //reservation.TypeId = reservationType.Id;
 
-            using (var httpClient = new HttpClient())
-            {
-                httpClient.BaseAddress = new Uri($"{baseurl}Reservations");
-                //HTTP POST
-                var postTask = httpClient.PostAsJsonAsync<Reservation>("Reservations", reservation);
-                postTask.Wait();
-                var result = postTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    List<Reservation> reservationList = new List<Reservation>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    httpClient.BaseAddress = new Uri($"{baseurl}Reservations");
+            //    //HTTP POST
+            //    var postTask = httpClient.PostAsJsonAsync<Reservation>("Reservations", reservation);
+            //    postTask.Wait();
+            //    var result = postTask.Result;
+            //    if (result.IsSuccessStatusCode)
+            //    {
+            //        List<Reservation> reservationList = new List<Reservation>();
                     
-                    using (var response = await httpClient.GetAsync($"{baseurl}Reservations"))
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        reservationList = JsonConvert.DeserializeObject<List<Reservation>>(apiResponse);
-                        HttpResponseMessage res = await httpClient.GetAsync($"Reservations/{reservationList.Count}");
-                        if (res.IsSuccessStatusCode)
-                        {
-                            var resp = res.Content.ReadAsStringAsync().Result;
-                            reservation = JsonConvert.DeserializeObject<Reservation>(resp);
+            //        using (var response = await httpClient.GetAsync($"{baseurl}Reservations"))
+            //        {
+            //            string apiResponse = await response.Content.ReadAsStringAsync();
+            //            reservationList = JsonConvert.DeserializeObject<List<Reservation>>(apiResponse);
+            //            HttpResponseMessage res = await httpClient.GetAsync($"Reservations/{reservationList.Count}");
+            //            if (res.IsSuccessStatusCode)
+            //            {
+            //                var resp = res.Content.ReadAsStringAsync().Result;
+            //                reservation = JsonConvert.DeserializeObject<Reservation>(resp);
 
-                        }
-                    }
+            //            }
+            //        }
                      
-                }
+            //    }
 
-                foreach (var item in cart.Bicycles)
-                {
-                    BikesReserved bikesReserved = new BikesReserved();
-                    bikesReserved.ReservationId = reservation.Id;
-                    bikesReserved.BycicleId = item.Id;
-                    httpClient.BaseAddress = new Uri($"{baseurl}BikesReserveds");
+            //    foreach (var item in cart.Bicycles)
+            //    {
+            //        BikesReserved bikesReserved = new BikesReserved();
+            //        bikesReserved.ReservationId = reservation.Id;
+            //        bikesReserved.BycicleId = item.Id;
+            //        httpClient.BaseAddress = new Uri($"{baseurl}BikesReserveds");
                     
-                    postTask = httpClient.PostAsJsonAsync<BikesReserved>("BikesReserveds", bikesReserved);
-                    postTask.Wait();
+            //        postTask = httpClient.PostAsJsonAsync<BikesReserved>("BikesReserveds", bikesReserved);
+            //        postTask.Wait();
                     
-                }
-                foreach (var item in cart.Accessories)
-                {
-                    ReservationAccessories reservationAccessories = new ReservationAccessories();
-                    reservationAccessories.ReservationId = reservation.Id;
-                    reservationAccessories.AccessoryId = item.Id;
-                    httpClient.BaseAddress = new Uri($"{baseurl}ReservationAccessories");
+            //    }
+            //    foreach (var item in cart.Accessories)
+            //    {
+            //        ReservationAccessories reservationAccessories = new ReservationAccessories();
+            //        reservationAccessories.ReservationId = reservation.Id;
+            //        reservationAccessories.AccessoryId = item.Id;
+            //        httpClient.BaseAddress = new Uri($"{baseurl}ReservationAccessories");
 
-                    postTask = httpClient.PostAsJsonAsync<ReservationAccessories>("ReservationAccessories", reservationAccessories);
-                    postTask.Wait();
+            //        postTask = httpClient.PostAsJsonAsync<ReservationAccessories>("ReservationAccessories", reservationAccessories);
+            //        postTask.Wait();
 
-                }
-            }
-            cart.Checkout();
+            //    }
+            //}
+            //cart.Checkout();
             return View();
    
         }
