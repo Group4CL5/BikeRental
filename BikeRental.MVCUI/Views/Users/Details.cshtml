@@ -20,10 +20,7 @@
                 </th>
                 <th>
                     Gender
-                </th>
-                <th>
-                    Location
-                </th>
+                </th>                
                 <th></th>
             </tr>
         </thead>
@@ -41,9 +38,7 @@
                         @Html.DisplayFor(modelItem => item.Gender)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Location.City)
-                    </td>
-                    <td>
+                   
                         <a class="btn btn-secondary" asp-action="AddBikeFromCart" asp-route-id="@item.Id" asp-route-url="@Context.Request.Host@Context.Request.Path" id="update">Add Bicycle to Reservation</a>
 
                     </td>

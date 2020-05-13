@@ -115,7 +115,7 @@ namespace BikeRental.MVCUI.Controllers
                 client.BaseAddress = new Uri(baseurl);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage res = await client.GetAsync($"{baseurl}Customers/{customer.Email}");
+                HttpResponseMessage res = await client.GetAsync($"{baseurl}Customers/Email/{customer.Email}");
                 if (res.IsSuccessStatusCode)
                 {
                     

@@ -28,10 +28,10 @@ namespace BikeRental.Controllers
         }
 
         // GET: api/Customers/5
-        [HttpGet("{email}")]
-        public async Task<ActionResult<Customer>> GetCustomer(string email)
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<Customer>> GetCustomer(int Id)
         {
-            var customer = await _context.Customer.FindAsync(email);
+            var customer = await _context.Customer.FindAsync(Id);
 
             if (customer == null)
             {
@@ -41,6 +41,18 @@ namespace BikeRental.Controllers
             return customer;
         }
 
+        [HttpGet("email/{email}")]
+        public async Task<ActionResult<Customer>> GetCustomer(string email)
+        {
+            var customer = await _context.Customer.FirstOrDefaultAsync(c => c.Email == email);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return customer;
+        }
         // PUT: api/Customers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
