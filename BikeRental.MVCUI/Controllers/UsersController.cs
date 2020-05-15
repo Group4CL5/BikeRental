@@ -13,6 +13,7 @@ using BikeRental.MVCUI.Models.ViewModels;
 using Microsoft.AspNetCore.Session;
 using System.Web;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace BikeRental.MVCUI.Controllers
 {
@@ -248,7 +249,18 @@ namespace BikeRental.MVCUI.Controllers
 
                 }
             }
-            int UserId = 1;
+            var value = HttpContext.Session.GetString("Customer");
+            int UserId;
+            if (value != null)
+            {
+                Customer customer = JsonConvert.DeserializeObject<Customer>(value);
+                UserId = customer.Id;
+            }
+            else
+            {
+                UserId = 1;
+            }
+            
             Reservation reservation = new Reservation();
             reservation.CustomerId = UserId;
             reservation.LocationId = cart.LocationId;

@@ -1,4 +1,4 @@
-﻿@model BikeRental.Models.Reservation
+﻿@model BikeRental.MVCUI.Models.ViewModels.ReservationBikeViewModel;
 
 @{
     ViewData["Title"] = "Details";
@@ -11,38 +11,63 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OutTime)
+            @Html.DisplayNameFor(model => model.Reservation.OutTime)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OutTime)
+            @Html.DisplayFor(model => model.Reservation.OutTime)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Reservation.Price)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.Reservation.Price)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer)
+            @Html.DisplayNameFor(model => model.Reservation.Customer)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.Email)
+            @Html.DisplayFor(model => model.Reservation.Customer.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
+            @Html.DisplayNameFor(model => model.Reservation.Location)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location.City)
+            @Html.DisplayFor(model => model.Reservation.Location.City)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.DisplayNameFor(model => model.Reservation.Type)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type.Type)
+            @Html.DisplayFor(model => model.Reservation.Type.Type)
         </dd>
     </dl>
+
+    <h3>Reserved Bicycles</h3>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Size</th>
+                    <th>Gender</th>
+                    <th>Brand</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Bicycles)
+                {
+                    <tr>
+                        <td>@item.Type</td>
+                        <td>@item.Size</td>
+                        <td>@item.Gender</td>
+                        <td>@item.Brand</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Reservation.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

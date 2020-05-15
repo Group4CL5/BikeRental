@@ -27,6 +27,18 @@ namespace BikeRental.Controllers
             return await _context.BikesReserved.ToListAsync();
         }
 
+        // GET: api/BikesReserveds/BikeObject
+        [HttpGet]
+        [Route("BikeObjects/{id}")]
+        public async Task<ActionResult<IEnumerable<BikesReserved>>> BikeObjects(int id)
+        {
+            List<BikesReserved> br = await _context.BikesReserved.Where(b => b.ReservationId == id).ToListAsync();
+
+            return br;
+        }
+
+
+
         // GET: api/BikesReserveds/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BikesReserved>> GetBikesReserved(int id)

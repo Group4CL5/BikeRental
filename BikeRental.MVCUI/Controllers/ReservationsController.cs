@@ -9,6 +9,7 @@ using BikeRental.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using BikeRental.MVCUI.Models.ViewModels;
 
 namespace BikeRental.MVCUI.Controllers
 {
@@ -49,6 +50,7 @@ namespace BikeRental.MVCUI.Controllers
         // GET: Reservations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ReservationBikeViewModel rbvm = new ReservationBikeViewModel();
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseurl);
@@ -77,7 +79,25 @@ namespace BikeRental.MVCUI.Controllers
                         reservation.Customer = JsonConvert.DeserializeObject<Customer>(apiResponse);
 
                     }
-                    return View(reservation);
+                    rbvm.Reservation = reservation;
+                    using (res = await client.GetAsync($"{baseurl}BikesReserveds/BikeObjects/{reservation.Id}"))
+                    {
+                        string apiResponse = await res.Content.ReadAsStringAsync();
+                        rbvm.BikesReserved = JsonConvert.DeserializeObject<List<BikesReserved>>(apiResponse);
+
+                    }
+                    foreach (var item in rbvm.BikesReserved)
+                    {
+                        using (res = await client.GetAsync($"{baseurl}Bicycles/{item.BycicleId}"))
+                        {
+                            string apiResponse = await res.Content.ReadAsStringAsync();
+                            Bicycle bicycle = JsonConvert.DeserializeObject<Bicycle>(apiResponse);
+                            rbvm.Bicycles.Add(bicycle);
+
+                        }
+                    }
+
+                    return View(rbvm);
                 }
             }
             return RedirectToAction("Index");
